@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iphile Akho Selana — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --phone-w: 393px;
+  --phone-h: 852px;
+  --black: #000000;
+  --darkglass: rgba(28,28,30,0.95);
+  --card: rgba(44,44,46,0.8);
+  --card2: rgba(58,58,60,0.6);
+  --white: #ffffff;
+  --grey: rgba(235,235,245,0.6);
+  --grey2: rgba(235,235,245,0.3);
+  --blue: #0a84ff;
+  --green: #30d158;
+  --yellow: #ffd60a;
+  --orange: #ff9f0a;
+  --pink: #ff375f;
+  --teal: #5ac8fa;
+  --border: rgba(255,255,255,0.1);
+  --blur: blur(40px) saturate(180%);
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  background: #0a0a0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* AMBIENT BACKGROUND */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: drift ease-in-out infinite;
+}
+.orb1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(10,132,255,0.15), transparent); top: -100px; left: -100px; animation-duration: 12s; }
+.orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,55,95,0.1), transparent); bottom: -50px; right: -50px; animation-duration: 15s; animation-delay: -6s; }
+.orb3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(48,209,88,0.08), transparent); top: 40%; left: 40%; animation-duration: 18s; animation-delay: -3s; }
+@keyframes drift { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.05)} 66%{transform:translate(-20px,30px) scale(0.95)} }
+
+/* PHONE FRAME */
+.phone-scene {
+  position: relative;
+  z-index: 10;
+  perspective: 1200px;
+}
+.phone-wrapper {
+  animation: floatPhone 4s ease-in-out infinite;
+}
+@keyframes floatPhone { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+.iphone {
+  width: var(--phone-w);
+  height: var(--phone-h);
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 40%, #111 100%);
+  border-radius: 54px;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.15),
+    0 0 0 2px rgba(0,0,0,0.8),
+    0 50px 120px rgba(0,0,0,0.9),
+    0 0 80px rgba(10,132,255,0.08),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+
+/* PHONE SIDE BUTTONS */
+.iphone::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 120px;
+  width: 3px;
+  height: 36px;
+  background: linear-gradient(to bottom, #333, #444, #333);
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 50px 0 #444, 0 100px 0 #444;
+}
+.iphone::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: 160px;
+  width: 3px;
+  height: 70px;
+  background: linear-gradient(to bottom, #333, #444, #333);
+  border-radius: 0 2px 2px 0;
+}
+
+/* SCREEN */
+.screen {
+  position: absolute;
+  inset: 2px;
+  border-radius: 52px;
+  background: #000;
+  overflow: hidden;
+}
+
+/* DYNAMIC ISLAND */
+.dynamic-island {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 37px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+.dynamic-island:hover {
+  width: 200px;
+  height: 44px;
+}
+.di-camera {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 2px solid #222;
+  position: relative;
+}
+.di-camera::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #0a84ff;
+  opacity: 0.6;
+}
+.di-pill {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #30d158;
+  animation: diPulse 2s ease-in-out infinite;
+}
+@keyframes diPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+/* STATUS BAR */
+.status-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 59px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 28px 10px;
+  z-index: 90;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+.status-time { font-size: 15px; font-weight: 700; letter-spacing: -0.5px; }
+.status-icons { display: flex; align-items: center; gap: 6px; }
+.status-icons svg { fill: white; }
+
+/* WALLPAPER */
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg,
+    #0d1117 0%,
+    #0a0f1e 25%,
+    #0d1520 50%,
+    #080d18 75%,
+    #050810 100%
+  );
+  overflow: hidden;
+}
+.wallpaper-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(10,132,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,132,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.wp-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+.wp-g1 { width: 250px; height: 250px; background: rgba(10,132,255,0.12); top: 60px; right: -40px; }
+.wp-g2 { width: 200px; height: 200px; background: rgba(255,55,95,0.08); bottom: 200px; left: -40px; }
+.wp-g3 { width: 150px; height: 150px; background: rgba(48,209,88,0.07); top: 300px; right: 40px; }
+
+/* SCROLLABLE CONTENT */
+.phone-content {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.phone-content::-webkit-scrollbar { display: none; }
+
+/* SCREENS/PAGES */
+.pscreen {
+  min-height: 100%;
+  scroll-snap-align: start;
+  position: relative;
+  padding: 70px 20px 30px;
+}
+
+/* ── LOCK / HOME SCREEN ── */
+.lock-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100%;
+  padding: 75px 20px 40px;
+}
+.lock-date {
+  text-align: center;
+  margin-top: 20px;
+}
+.lock-day { font-size: 17px; font-weight: 400; color: var(--grey); letter-spacing: 0.3px; }
+.lock-time-big { font-size: 80px; font-weight: 300; color: white; letter-spacing: -4px; line-height: 1; }
+.lock-subtitle { font-size: 13px; color: var(--grey); margin-top: 4px; letter-spacing: 0.2px; }
+
+/* PROFILE WIDGET */
+.profile-widget {
+  width: 100%;
+  background: rgba(28,28,30,0.7);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 18px 20px;
+  margin-top: 20px;
+}
+.pw-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.pw-avatar {
+  width: 52px; height: 52px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #0a84ff, #5ac8fa);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800; color: white;
+  flex-shrink: 0;
+  letter-spacing: -1px;
+}
+.pw-name { font-size: 17px; font-weight: 700; color: white; letter-spacing: -0.4px; }
+.pw-role { font-size: 12px; color: var(--grey); margin-top: 2px; }
+.pw-avail {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(48,209,88,0.15);
+  border: 1px solid rgba(48,209,88,0.3);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 11px; font-weight: 600; color: #30d158;
+  margin-top: 6px;
+}
+.avail-dot { width: 5px; height: 5px; border-radius: 50%; background: #30d158; animation: diPulse 1.5s infinite; }
+.pw-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.pw-stat {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+}
+.pw-stat-n { font-size: 18px; font-weight: 800; color: white; letter-spacing: -0.5px; display: block; }
+.pw-stat-l { font-size: 9px; color: var(--grey); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; display: block; }
+
+/* APP GRID */
+.app-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 0 8px;
+  margin-top: 8px;
+}
+.app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.app-icon:active { transform: scale(0.9); }
+.app-icon-img {
+  width: 60px; height: 60px;
+  border-radius: 15px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+.app-icon-img::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.12), transparent);
+  border-radius: 15px 15px 0 0;
+}
+.app-label { font-size: 10px; color: white; font-weight: 500; letter-spacing: 0.1px; text-align: center; }
+.ai-about { background: linear-gradient(135deg, #1c1c1e, #2c2c2e); }
+.ai-skills { background: linear-gradient(135deg, #0a84ff, #0066cc); }
+.ai-projects { background: linear-gradient(135deg, #30d158, #25a244); }
+.ai-certs { background: linear-gradient(135deg, #ffd60a, #cc9900); }
+.ai-contact { background: linear-gradient(135deg, #ff375f, #cc2244); }
+.ai-linkedin { background: linear-gradient(135deg, #0077b5, #005885); }
+.ai-github { background: linear-gradient(135deg, #333, #555); }
+.ai-wa { background: linear-gradient(135deg, #25d366, #1da851); }
+
+/* DOCK */
+.dock {
+  width: calc(100% - 28px);
+  background: rgba(40,40,42,0.7);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 12px 0 0;
+}
+
+/* HOME INDICATOR */
+.home-indicator {
+  width: 134px; height: 5px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+  margin: 10px auto 0;
+}
+
+/* NOTIFICATION CARDS */
+.notif-card {
+  width: 100%;
+  background: rgba(28,28,30,0.75);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.notif-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.notif-app { font-size: 11px; font-weight: 600; color: var(--grey); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.notif-title { font-size: 13px; font-weight: 600; color: white; margin-bottom: 2px; }
+.notif-body { font-size: 12px; color: var(--grey); line-height: 1.4; }
+.notif-time { font-size: 11px; color: var(--grey2); margin-left: auto; flex-shrink: 0; }
+
+/* APP PAGES */
+.app-page {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 200;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  animation: slideUp 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+  border-radius: 52px;
+}
+.app-page::-webkit-scrollbar { display: none; }
+.app-page.active { display: block; }
+@keyframes slideUp { from{transform:translateY(100%);opacity:0.5} to{transform:translateY(0);opacity:1} }
+@keyframes slideDown { from{transform:translateY(0)} to{transform:translateY(100%)} }
+.app-page.closing { animation: slideDown 0.35s ease both; }
+
+/* APP HEADER */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: var(--blur);
+  padding: 60px 22px 14px;
+}
+.app-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--blue);
+  cursor: pointer;
+  margin-bottom: 10px;
+  background: none;
+  border: none;
+}
+.app-back-chevron { font-size: 20px; }
+.app-large-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1.05;
+}
+
+/* CARDS iOS STYLE */
+.ios-card {
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  border-radius: 16px;
+  margin: 0 16px 12px;
+  overflow: hidden;
+}
+.ios-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  gap: 14px;
+}
+.ios-row:last-child { border-bottom: none; }
+.ios-row-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.ios-row-label { font-size: 17px; font-weight: 400; color: white; flex: 1; }
+.ios-row-value { font-size: 17px; color: var(--grey); }
+.ios-row-chevron { font-size: 12px; color: var(--grey2); }
+.ios-section-header {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 22px 22px 8px;
+}
+.ios-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 3px;
+}
+.pill-blue { background: rgba(10,132,255,0.2); color: #0a84ff; }
+.pill-green { background: rgba(48,209,88,0.2); color: #30d158; }
+.pill-orange { background: rgba(255,159,10,0.2); color: #ff9f0a; }
+.pill-pink { background: rgba(255,55,95,0.2); color: #ff375f; }
+.pill-teal { background: rgba(90,200,250,0.2); color: #5ac8fa; }
+.pill-yellow { background: rgba(255,214,10,0.2); color: #ffd60a; }
+
+/* PROJECT CARD iOS */
+.proj-ios {
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  border-radius: 20px;
+  margin: 0 16px 14px;
+  overflow: hidden;
+}
+.proj-ios-header {
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.proj-ios-icon { font-size: 32px; margin-bottom: 10px; display: block; }
+.proj-ios-name { font-size: 20px; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 5px; }
+.proj-ios-desc { font-size: 14px; color: var(--grey); line-height: 1.6; font-weight: 400; }
+.proj-ios-footer {
+  padding: 12px 18px;
+  display: flex;
+  gap: 10px;
+}
+.ios-btn {
+  flex: 1;
+  background: rgba(10,132,255,0.15);
+  border: 1px solid rgba(10,132,255,0.3);
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+.ios-btn:active { background: rgba(10,132,255,0.25); }
+.ios-btn-ghost {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  color: var(--grey);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* CERT CARD */
+.cert-ios {
+  background: var(--card);
+  border-radius: 14px;
+  margin: 0 16px 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cert-ios-badge {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.cert-ios-name { font-size: 14px; font-weight: 600; color: white; margin-bottom: 2px; }
+.cert-ios-issuer { font-size: 12px; color: var(--grey); }
+.cert-checkmark { margin-left: auto; color: var(--green); font-size: 18px; flex-shrink: 0; }
+
+/* CONTACT FORM iOS */
+.ios-input-group { margin: 0 16px 12px; }
+.ios-input-label { font-size: 12px; font-weight: 600; color: var(--grey); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+.ios-input {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: white;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 13px 14px;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.ios-input:focus { border-color: var(--blue); }
+.ios-input::placeholder { color: var(--grey2); }
+.ios-textarea {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: white;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  outline: none;
+  resize: none;
+  min-height: 110px;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.ios-textarea:focus { border-color: var(--blue); }
+.ios-textarea::placeholder { color: var(--grey2); }
+.ios-send-btn {
+  width: calc(100% - 32px);
+  margin: 4px 16px 0;
+  background: var(--blue);
+  color: white;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  letter-spacing: -0.3px;
+}
+.ios-send-btn:active { opacity: 0.8; }
+
+/* TESTI iOS */
+.testi-ios {
+  background: var(--card);
+  border-radius: 20px;
+  margin: 0 16px 14px;
+  padding: 18px;
+}
+.testi-ios-quote { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.65; font-style: italic; margin-bottom: 16px; font-weight: 300; }
+.testi-ios-author { display: flex; align-items: center; gap: 12px; }
+.testi-ios-av {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0a84ff, #5ac8fa);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: white;
+}
+.testi-ios-name { font-size: 13px; font-weight: 700; color: white; }
+.testi-ios-role { font-size: 11px; color: var(--grey); margin-top: 1px; }
+
+/* APPLE LOGO SPLASH */
+.apple-splash {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  border-radius: 52px;
+  animation: splashFade 0.5s ease 2s both;
+}
+@keyframes splashFade { to{opacity:0;pointer-events:none} }
+.apple-logo {
+  animation: logoBreath 1.8s ease-in-out;
+}
+
+/* BOTTOM SHEET */
+.bottom-sheet {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 300;
+}
+.bottom-sheet.open { display: block; }
+.bs-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+.bs-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: #1c1c1e;
+  border-radius: 20px 20px 0 0;
+  padding: 8px 0 40px;
+  animation: sheetUp 0.35s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+@keyframes sheetUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.bs-handle { width: 36px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 8px auto 16px; }
+.bs-title { font-size: 13px; color: var(--grey); text-align: center; margin-bottom: 10px; font-weight: 500; }
+.bs-action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: background 0.1s;
+  font-size: 17px;
+  color: white;
+  font-weight: 400;
+}
+.bs-action:hover { background: rgba(255,255,255,0.05); }
+.bs-action:last-child { border-bottom: none; }
+.bs-action-icon { font-size: 20px; }
+.bs-cancel {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 8px 16px 0;
+  background: rgba(44,44,46,0.9);
+  color: var(--blue);
+  font-size: 17px;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+}
+
+/* DESKTOP WRAPPER */
+.desktop-info {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  color: rgba(255,255,255,0.3);
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+@media(min-width: 500px) {
+  html, body { overflow: hidden; }
+  .desktop-info { display: block; }
+}
+
+@media(max-width: 499px) {
+  html, body { align-items: flex-start; overflow-y: auto; background: #000; }
+  .phone-scene { width: 100vw; }
+  .phone-wrapper { animation: none; }
+  .iphone {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .screen { border-radius: 0; inset: 0; }
+  .apple-splash { border-radius: 0; }
+  .app-page { border-radius: 0; }
+}
+
+.pb-end { height: 40px; }
+</style>
+</head>
+<body>
+
+<!-- AMBIENT -->
+<div class="ambient">
+  <div class="ambient-orb orb1"></div>
+  <div class="ambient-orb orb2"></div>
+  <div class="ambient-orb orb3"></div>
+</div>
+
+<!-- PHONE -->
+<div class="phone-scene">
+  <div class="phone-wrapper">
+    <div class="iphone">
+      <div class="screen">
+
+        <!-- APPLE SPLASH -->
+        <div class="apple-splash" id="splash">
+          <div class="apple-logo">
+            <svg width="60" height="73" viewBox="0 0 814 1000" fill="white">
+              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 268.8-317.3 71 0 130.2 46.8 175 46.8 42.3 0 108.3-49.8 190.5-49.8zm-234.6-187c31.8-37.7 54.5-90.5 54.5-143.4 0-7.3-.6-14.6-1.9-21.2-51.6 2-112.3 34.4-149.3 76.8-28.5 32.4-55.1 83.6-55.1 137.2 0 8 1.3 16 1.9 18.6 3.2.6 8.4 1.3 13.6 1.3 46.1 0 101.8-31.1 136.3-69.3z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- WALLPAPER -->
+        <div class="wallpaper">
+          <div class="wallpaper-grid"></div>
+          <div class="wp-glow wp-g1"></div>
+          <div class="wp-glow wp-g2"></div>
+          <div class="wp-glow wp-g3"></div>
+        </div>
+
+        <!-- STATUS BAR -->
+        <div class="status-bar">
+          <div class="status-time" id="statusTime">9:41</div>
+          <div class="status-icons">
+            <svg width="17" height="12" viewBox="0 0 17 12"><rect x="0" y="3" width="3" height="9" rx="1" opacity="0.4"/><rect x="4.5" y="2" width="3" height="10" rx="1" opacity="0.6"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" opacity="0.8"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 2.4C5.1 2.4 2.5 3.6.6 5.6L0 4.9C2.1 2.7 5 1.4 8 1.4s5.9 1.3 8 3.5l-.6.7C13.5 3.6 10.9 2.4 8 2.4z" opacity="0.4"/><path d="M8 4.8c-2 0-3.8.8-5.1 2.2L2.3 6.3C3.8 4.6 5.8 3.5 8 3.5s4.2 1.1 5.7 2.8l-.6.7C11.8 5.6 10 4.8 8 4.8z" opacity="0.7"/><path d="M8 7.2c-1.1 0-2.1.5-2.8 1.2L4.6 7.7C5.5 6.7 6.7 6.1 8 6.1s2.5.6 3.4 1.6l-.6.7C10.1 7.7 9.1 7.2 8 7.2z"/><circle cx="8" cy="10.5" r="1.3"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35" fill="none"/><rect x="22" y="4" width="3" height="4" rx="1.5" fill="white" fill-opacity="0.4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/></svg>
+          </div>
+        </div>
+
+        <!-- DYNAMIC ISLAND -->
+        <div class="dynamic-island" onclick="toggleDI()">
+          <div class="di-camera"></div>
+          <div class="di-pill" id="diPill"></div>
+        </div>
+
+        <!-- HOME SCREEN CONTENT -->
+        <div class="phone-content" id="homeContent">
+
+          <!-- LOCK / HOME -->
+          <div class="lock-screen">
+            <div class="lock-date">
+              <div class="lock-day" id="lockDay">Monday</div>
+              <div class="lock-time-big" id="lockTime">9:41</div>
+              <div class="lock-subtitle">Johannesburg, South Africa</div>
+            </div>
+
+            <!-- NOTIFICATIONS -->
+            <div style="width:100%;margin-top:16px">
+              <div class="notif-card">
+                <div class="notif-icon" style="background:rgba(10,132,255,0.2)">💼</div>
+                <div style="flex:1">
+                  <div class="notif-app">Portfolio</div>
+                  <div class="notif-title">New Project Shipped 🚀</div>
+                  <div class="notif-body">MadaKop is live — full-stack club platform with AI chatbot</div>
+                </div>
+                <div class="notif-time">now</div>
+              </div>
+              <div class="notif-card">
+                <div class="notif-icon" style="background:rgba(48,209,88,0.2)">🎓</div>
+                <div style="flex:1">
+                  <div class="notif-app">ITvarsity</div>
+                  <div class="notif-title">Graduating July 2025</div>
+                  <div class="notif-body">NQF Level 4 Full Stack Development — FNB App Academy</div>
+                </div>
+                <div class="notif-time">1d</div>
+              </div>
+              <div class="notif-card">
+                <div class="notif-icon" style="background:rgba(255,214,10,0.2)">📜</div>
+                <div style="flex:1">
+                  <div class="notif-app">Certifications</div>
+                  <div class="notif-title">13 Certifications Earned</div>
+                  <div class="notif-body">Microsoft AI, AWS, Google Digital Marketing & more</div>
+                </div>
+                <div class="notif-time">3d</div>
+              </div>
+            </div>
+
+            <!-- PROFILE WIDGET -->
+            <div class="profile-widget">
+              <div class="pw-top">
+                <div class="pw-avatar">IA</div>
+                <div>
+                  <div class="pw-name">Iphile Akho Selana</div>
+                  <div class="pw-role">Full Stack Developer</div>
+                  <div class="pw-avail"><span class="avail-dot"></span>Available for hire</div>
+                </div>
+              </div>
+              <div class="pw-stats">
+                <div class="pw-stat"><span class="pw-stat-n" style="color:#0a84ff">13+</span><span class="pw-stat-l">Certs</span></div>
+                <div class="pw-stat"><span class="pw-stat-n" style="color:#30d158">Full</span><span class="pw-stat-l">Stack</span></div>
+                <div class="pw-stat"><span class="pw-stat-n" style="color:#ff9f0a">4</span><span class="pw-stat-l">Languages</span></div>
+              </div>
+            </div>
+
+            <!-- APP GRID -->
+            <div class="app-grid">
+              <div class="app-icon" onclick="openApp('about')">
+                <div class="app-icon-img ai-about">👤</div>
+                <div class="app-label">About</div>
+              </div>
+              <div class="app-icon" onclick="openApp('skills')">
+                <div class="app-icon-img ai-skills">⚡</div>
+                <div class="app-label">Skills</div>
+              </div>
+              <div class="app-icon" onclick="openApp('projects')">
+                <div class="app-icon-img ai-projects">🚀</div>
+                <div class="app-label">Projects</div>
+              </div>
+              <div class="app-icon" onclick="openApp('certs')">
+                <div class="app-icon-img ai-certs">🏆</div>
+                <div class="app-label">Certs</div>
+              </div>
+              <div class="app-icon" onclick="openApp('contact')">
+                <div class="app-icon-img ai-contact">✉️</div>
+                <div class="app-label">Contact</div>
+              </div>
+              <div class="app-icon" onclick="window.open('https://www.linkedin.com/in/iphile-akho-selana-13b64139b','_blank')">
+                <div class="app-icon-img ai-linkedin">in</div>
+                <div class="app-label">LinkedIn</div>
+              </div>
+              <div class="app-icon" onclick="window.open('https://github.com/Project30Hub','_blank')">
+                <div class="app-icon-img ai-github">🐙</div>
+                <div class="app-label">GitHub</div>
+              </div>
+              <div class="app-icon" onclick="window.open('https://wa.me/27683305409','_blank')">
+                <div class="app-icon-img ai-wa">💬</div>
+                <div class="app-label">WhatsApp</div>
+              </div>
+            </div>
+
+            <!-- DOCK -->
+            <div class="dock">
+              <div class="app-icon" onclick="openApp('about')">
+                <div class="app-icon-img ai-about" style="width:52px;height:52px;border-radius:13px;font-size:22px">👤</div>
+              </div>
+              <div class="app-icon" onclick="openApp('projects')">
+                <div class="app-icon-img ai-projects" style="width:52px;height:52px;border-radius:13px;font-size:22px">🚀</div>
+              </div>
+              <div class="app-icon" onclick="openApp('contact')">
+                <div class="app-icon-img ai-contact" style="width:52px;height:52px;border-radius:13px;font-size:22px">✉️</div>
+              </div>
+              <div class="app-icon" onclick="window.open('https://wa.me/27683305409','_blank')">
+                <div class="app-icon-img ai-wa" style="width:52px;height:52px;border-radius:13px;font-size:22px">💬</div>
+              </div>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+
+        </div><!-- end phone-content -->
+
+        <!-- ══ APP: ABOUT ══ -->
+        <div class="app-page" id="app-about">
+          <div style="background:linear-gradient(180deg,#1c1c1e,#000);min-height:100%">
+            <div class="app-header" style="background:rgba(0,0,0,0.7)">
+              <button class="app-back" onclick="closeApp('about')"><span class="app-back-chevron">‹</span> Back</button>
+              <div class="app-large-title">About</div>
+            </div>
+
+            <!-- PROFILE CARD -->
+            <div style="margin:0 16px 16px;background:linear-gradient(135deg,rgba(10,132,255,0.15),rgba(90,200,250,0.08));border:1px solid rgba(10,132,255,0.2);border-radius:22px;padding:24px">
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+                <div style="width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,#0a84ff,#5ac8fa);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:white;letter-spacing:-1px;flex-shrink:0">IA</div>
+                <div>
+                  <div style="font-size:22px;font-weight:800;color:white;letter-spacing:-0.5px">Iphile Akho Selana</div>
+                  <div style="font-size:14px;color:var(--grey);margin-top:3px">Full Stack Developer</div>
+                  <div style="font-size:12px;color:#30d158;margin-top:4px;font-weight:600">● Available for hire</div>
+                </div>
+              </div>
+              <div style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.65;font-weight:300">Passionate developer from <strong style="color:white;font-weight:600">Johannesburg, SA</strong> building efficient, user-friendly applications. Completing NQF Level 4 Full Stack Development at ITvarsity / FNB App Academy.</div>
+            </div>
+
+            <div class="ios-section-header">Personal Info</div>
+            <div class="ios-card">
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(10,132,255,0.2)">📍</div><div class="ios-row-label">Location</div><div class="ios-row-value">Johannesburg, SA</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(255,214,10,0.2)">🎓</div><div class="ios-row-label">Education</div><div class="ios-row-value">NQF Level 4</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(48,209,88,0.2)">📅</div><div class="ios-row-label">Graduating</div><div class="ios-row-value">July 2025</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(255,159,10,0.2)">🌍</div><div class="ios-row-label">Remote</div><div class="ios-row-value">Available worldwide</div></div>
+            </div>
+
+            <div class="ios-section-header">Languages Spoken</div>
+            <div class="ios-card">
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(90,200,250,0.2)">🗣️</div><div class="ios-row-label">English</div><div class="ios-row-value" style="color:#5ac8fa">Fluent</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(90,200,250,0.2)">🗣️</div><div class="ios-row-label">Xhosa</div><div class="ios-row-value" style="color:#5ac8fa">Fluent</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(255,159,10,0.2)">🗣️</div><div class="ios-row-label">Sesotho</div><div class="ios-row-value" style="color:#ff9f0a">Proficient</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(255,159,10,0.2)">🗣️</div><div class="ios-row-label">Afrikaans</div><div class="ios-row-value" style="color:#ff9f0a">Proficient</div></div>
+            </div>
+
+            <div class="ios-section-header">Work Experience</div>
+            <div class="ios-card">
+              <div class="ios-row" style="align-items:flex-start;padding:16px">
+                <div class="ios-row-icon" style="background:rgba(255,55,95,0.2);margin-top:2px">🔒</div>
+                <div style="flex:1">
+                  <div style="font-size:15px;color:white;font-weight:600">Security Officer</div>
+                  <div style="font-size:13px;color:var(--grey);margin-top:2px">Fidelity Security Services</div>
+                  <div style="font-size:12px;color:var(--grey2);margin-top:2px">Jan 2023 – Aug 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ios-section-header">Community</div>
+            <div class="ios-card">
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(48,209,88,0.2)">❤️</div><div class="ios-row-label">Mes Impilo Shelter</div><div class="ios-row-value">Volunteer</div></div>
+            </div>
+
+            <!-- TESTIMONIALS -->
+            <div class="ios-section-header">Testimonials</div>
+            <div class="testi-ios">
+              <div class="testi-ios-quote">"Iphile built our entire platform from scratch — website, app, member system, AI chatbot, everything. What would've taken a team weeks, he delivered fast and it looks incredible."</div>
+              <div class="testi-ios-author">
+                <div class="testi-ios-av">MK</div>
+                <div><div class="testi-ios-name">MadaKop Client</div><div class="testi-ios-role">Healing Hub · Evaton, SA</div></div>
+              </div>
+            </div>
+            <div class="testi-ios" style="margin-top:0">
+              <div class="testi-ios-quote">"Strong technical ability and methodical problem solving. Delivers clean, well-structured code and communicates clearly throughout."</div>
+              <div class="testi-ios-author">
+                <div class="testi-ios-av" style="background:linear-gradient(135deg,#30d158,#25a244)">IT</div>
+                <div><div class="testi-ios-name">ITvarsity / FNB App Academy</div><div class="testi-ios-role">Full Stack Development Programme</div></div>
+              </div>
+            </div>
+            <div class="pb-end"></div>
+          </div>
+        </div>
+
+        <!-- ══ APP: SKILLS ══ -->
+        <div class="app-page" id="app-skills">
+          <div style="background:linear-gradient(180deg,#0a1628,#000);min-height:100%">
+            <div class="app-header" style="background:rgba(0,0,20,0.7)">
+              <button class="app-back" onclick="closeApp('skills')"><span class="app-back-chevron">‹</span> Back</button>
+              <div class="app-large-title">Skills</div>
+            </div>
+
+            <div class="ios-section-header">Frontend Development</div>
+            <div style="padding:0 16px;display:flex;flex-wrap:wrap;margin-bottom:12px">
+              <span class="ios-pill pill-blue">HTML5</span><span class="ios-pill pill-blue">CSS3</span><span class="ios-pill pill-blue">JavaScript</span><span class="ios-pill pill-blue">React.js</span><span class="ios-pill pill-blue">Responsive Design</span><span class="ios-pill pill-blue">UX Design</span>
+            </div>
+
+            <div class="ios-section-header">Backend & Databases</div>
+            <div style="padding:0 16px;display:flex;flex-wrap:wrap;margin-bottom:12px">
+              <span class="ios-pill pill-green">Node.js</span><span class="ios-pill pill-green">MySQL</span><span class="ios-pill pill-green">Firebase</span><span class="ios-pill pill-green">Supabase</span><span class="ios-pill pill-green">REST APIs</span><span class="ios-pill pill-green">Serverless</span>
+            </div>
+
+            <div class="ios-section-header">Tools & Platforms</div>
+            <div style="padding:0 16px;display:flex;flex-wrap:wrap;margin-bottom:12px">
+              <span class="ios-pill pill-orange">Git & GitHub</span><span class="ios-pill pill-orange">Vercel</span><span class="ios-pill pill-orange">PWA</span><span class="ios-pill pill-orange">Mobile Dev</span><span class="ios-pill pill-orange">SEO</span>
+            </div>
+
+            <div class="ios-section-header">AI & Emerging Tech</div>
+            <div style="padding:0 16px;display:flex;flex-wrap:wrap;margin-bottom:12px">
+              <span class="ios-pill pill-pink">Claude AI</span><span class="ios-pill pill-pink">AWS</span><span class="ios-pill pill-pink">Microsoft AI</span><span class="ios-pill pill-pink">Generative AI</span><span class="ios-pill pill-pink">Automation</span>
+            </div>
+
+            <div class="ios-section-header">Proficiency</div>
+            <div class="ios-card">
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(10,132,255,0.2)">🌐</div><div style="flex:1"><div class="ios-row-label">HTML / CSS</div><div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:6px"><div style="width:92%;height:100%;background:#0a84ff;border-radius:2px"></div></div></div><div class="ios-row-value" style="color:#0a84ff">92%</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(255,214,10,0.2)">⚡</div><div style="flex:1"><div class="ios-row-label">JavaScript</div><div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:6px"><div style="width:85%;height:100%;background:#ffd60a;border-radius:2px"></div></div></div><div class="ios-row-value" style="color:#ffd60a">85%</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(48,209,88,0.2)">🔧</div><div style="flex:1"><div class="ios-row-label">Node.js / Backend</div><div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:6px"><div style="width:78%;height:100%;background:#30d158;border-radius:2px"></div></div></div><div class="ios-row-value" style="color:#30d158">78%</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(90,200,250,0.2)">⚛️</div><div style="flex:1"><div class="ios-row-label">React.js</div><div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:6px"><div style="width:72%;height:100%;background:#5ac8fa;border-radius:2px"></div></div></div><div class="ios-row-value" style="color:#5ac8fa">72%</div></div>
+              <div class="ios-row"><div class="ios-row-icon" style="background:rgba(255,55,95,0.2)">🤖</div><div style="flex:1"><div class="ios-row-label">AI Integration</div><div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:6px"><div style="width:80%;height:100%;background:#ff375f;border-radius:2px"></div></div></div><div class="ios-row-value" style="color:#ff375f">80%</div></div>
+            </div>
+            <div class="pb-end"></div>
+          </div>
+        </div>
+
+        <!-- ══ APP: PROJECTS ══ -->
+        <div class="app-page" id="app-projects">
+          <div style="background:linear-gradient(180deg,#0a1a0d,#000);min-height:100%">
+            <div class="app-header" style="background:rgba(0,15,5,0.7)">
+              <button class="app-back" onclick="closeApp('projects')"><span class="app-back-chevron">‹</span> Back</button>
+              <div class="app-large-title">Projects</div>
+            </div>
+
+            <div class="ios-section-header">Featured</div>
+            <div class="proj-ios">
+              <div class="proj-ios-header">
+                <span class="proj-ios-icon">🌿</span>
+                <div class="proj-ios-name">MadaKop — Healing Hub & Private Club</div>
+                <div class="proj-ios-desc">Full-stack private cannabis club membership platform with member registration, unique MK-XXXXXX code auth, live loyalty dashboard, AI chatbot via Claude API, strain finder, tutorials, admin panel, PWA, and automated welcome emails.</div>
+                <div style="margin-top:12px;display:flex;flex-wrap:wrap">
+                  <span class="ios-pill pill-green" style="font-size:12px">HTML/CSS/JS</span><span class="ios-pill pill-blue" style="font-size:12px">Supabase</span><span class="ios-pill pill-pink" style="font-size:12px">Claude AI</span><span class="ios-pill pill-teal" style="font-size:12px">Vercel</span><span class="ios-pill pill-orange" style="font-size:12px">PWA</span>
+                </div>
+              </div>
+              <div class="proj-ios-footer">
+                <a href="https://madakop.vercel.app" target="_blank" class="ios-btn">🌐 Live Site</a>
+                <a href="https://github.com/Project30Hub/mada-kop" target="_blank" class="ios-btn-ghost">GitHub ↗</a>
+              </div>
+            </div>
+
+            <div class="ios-section-header">More Projects</div>
+            <div class="proj-ios">
+              <div class="proj-ios-header">
+                <span class="proj-ios-icon">📱</span>
+                <div class="proj-ios-name">iPhone Dev Portfolio</div>
+                <div class="proj-ios-desc">This portfolio — an immersive iPhone-style developer profile built with pure HTML/CSS/JS. Complete with Dynamic Island, app grid, and native iOS aesthetics.</div>
+                <div style="margin-top:12px;display:flex;flex-wrap:wrap">
+                  <span class="ios-pill pill-blue" style="font-size:12px">HTML5</span><span class="ios-pill pill-blue" style="font-size:12px">CSS3</span><span class="ios-pill pill-blue" style="font-size:12px">JavaScript</span>
+                </div>
+              </div>
+              <div class="proj-ios-footer">
+                <a href="https://github.com/Project30Hub" target="_blank" class="ios-btn">GitHub →</a>
+              </div>
+            </div>
+
+            <div class="proj-ios">
+              <div class="proj-ios-header">
+                <span class="proj-ios-icon">⚡</span>
+                <div class="proj-ios-name">More Coming Soon</div>
+                <div class="proj-ios-desc">Currently building more projects with React, Node.js and Firebase. Follow on GitHub for updates.</div>
+                <div style="margin-top:12px;display:flex;flex-wrap:wrap">
+                  <span class="ios-pill pill-orange" style="font-size:12px">React.js</span><span class="ios-pill pill-green" style="font-size:12px">Node.js</span><span class="ios-pill pill-yellow" style="font-size:12px">Firebase</span>
+                </div>
+              </div>
+              <div class="proj-ios-footer">
+                <a href="https://github.com/Project30Hub" target="_blank" class="ios-btn">GitHub →</a>
+              </div>
+            </div>
+            <div class="pb-end"></div>
+          </div>
+        </div>
+
+        <!-- ══ APP: CERTS ══ -->
+        <div class="app-page" id="app-certs">
+          <div style="background:linear-gradient(180deg,#1a1500,#000);min-height:100%">
+            <div class="app-header" style="background:rgba(20,15,0,0.7)">
+              <button class="app-back" onclick="closeApp('certs')"><span class="app-back-chevron">‹</span> Back</button>
+              <div class="app-large-title">Certifications</div>
+            </div>
+            <div class="ios-section-header">13 Certifications Earned</div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(10,132,255,0.2)">🤖</div><div><div class="cert-ios-name">Microsoft AI Fundamentals</div><div class="cert-ios-issuer">DUT · Microsoft</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(255,55,95,0.2)">🎮</div><div><div class="cert-ios-name">Software Engineering Job Simulation</div><div class="cert-ios-issuer">Electronic Arts</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(255,159,10,0.2)">☁️</div><div><div class="cert-ios-name">AWS Node Runners — BNB Smart Chain</div><div class="cert-ios-issuer">Amazon Web Services</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(90,200,250,0.2)">🌱</div><div><div class="cert-ios-name">Social Entrepreneurship</div><div class="cert-ios-issuer">HP</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(90,200,250,0.2)">💡</div><div><div class="cert-ios-name">Unique Value Proposition</div><div class="cert-ios-issuer">HP</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(48,209,88,0.2)">📊</div><div><div class="cert-ios-name">Business Analysis & Process Management</div><div class="cert-ios-issuer">United Latino Students Association</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(48,209,88,0.2)">📈</div><div><div class="cert-ios-name">Data Analysis — Microsoft Excel</div><div class="cert-ios-issuer">United Latino Students Association</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(255,214,10,0.2)">💰</div><div><div class="cert-ios-name">Investment Risk Management</div><div class="cert-ios-issuer">United Latino Students Association</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(255,214,10,0.2)">🔍</div><div><div class="cert-ios-name">SEO with Squarespace</div><div class="cert-ios-issuer">United Latino Students Association</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(10,132,255,0.2)">📱</div><div><div class="cert-ios-name">Fundamentals of Digital Marketing</div><div class="cert-ios-issuer">Google · The Open University</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(255,55,95,0.2)">🔐</div><div><div class="cert-ios-name">Security Officer Grade E, D, C</div><div class="cert-ios-issuer">Stallion</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(90,200,250,0.2)">💻</div><div><div class="cert-ios-name">Digital Literacy & Productivity</div><div class="cert-ios-issuer">Microsoft</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="cert-ios"><div class="cert-ios-badge" style="background:rgba(255,159,10,0.2)">🧠</div><div><div class="cert-ios-name">Introduction To Generative AI</div><div class="cert-ios-issuer">Amazon Web Services (AWS)</div></div><div class="cert-checkmark">✓</div></div>
+            <div class="pb-end"></div>
+          </div>
+        </div>
+
+        <!-- ══ APP: CONTACT ══ -->
+        <div class="app-page" id="app-contact">
+          <div style="background:linear-gradient(180deg,#1a0a0a,#000);min-height:100%">
+            <div class="app-header" style="background:rgba(20,5,5,0.7)">
+              <button class="app-back" onclick="closeApp('contact')"><span class="app-back-chevron">‹</span> Back</button>
+              <div class="app-large-title">Contact</div>
+            </div>
+
+            <div class="ios-section-header">Get in Touch</div>
+            <div class="ios-card">
+              <div class="ios-row" style="cursor:pointer" onclick="window.open('mailto:iphileakhoselana@outlook.com')"><div class="ios-row-icon" style="background:rgba(10,132,255,0.2)">✉️</div><div class="ios-row-label">Email</div><div class="ios-row-value" style="font-size:13px">iphileakhoselana@outlook.com</div><div class="ios-row-chevron">›</div></div>
+              <div class="ios-row" style="cursor:pointer" onclick="window.open('tel:+27683305409')"><div class="ios-row-icon" style="background:rgba(48,209,88,0.2)">📱</div><div class="ios-row-label">Phone</div><div class="ios-row-value">+27 68 330 5409</div><div class="ios-row-chevron">›</div></div>
+              <div class="ios-row" style="cursor:pointer" onclick="window.open('https://wa.me/27683305409','_blank')"><div class="ios-row-icon" style="background:rgba(37,211,102,0.2)">💬</div><div class="ios-row-label">WhatsApp</div><div class="ios-row-value">+27 68 330 5409</div><div class="ios-row-chevron">›</div></div>
+              <div class="ios-row" style="cursor:pointer" onclick="window.open('https://www.linkedin.com/in/iphile-akho-selana-13b64139b','_blank')"><div class="ios-row-icon" style="background:rgba(0,119,181,0.2)">💼</div><div class="ios-row-label">LinkedIn</div><div class="ios-row-value">Iphile Akho Selana</div><div class="ios-row-chevron">›</div></div>
+              <div class="ios-row" style="cursor:pointer" onclick="window.open('https://github.com/Project30Hub','_blank')"><div class="ios-row-icon" style="background:rgba(255,255,255,0.1)">🐙</div><div class="ios-row-label">GitHub</div><div class="ios-row-value">Project30Hub</div><div class="ios-row-chevron">›</div></div>
+            </div>
+
+            <div class="ios-section-header">Send a Message</div>
+            <div class="ios-input-group"><label class="ios-input-label">Your Name</label><input class="ios-input" type="text" placeholder="Jane Smith" id="cName"></div>
+            <div class="ios-input-group"><label class="ios-input-label">Email</label><input class="ios-input" type="email" placeholder="jane@company.com" id="cEmail"></div>
+            <div class="ios-input-group"><label class="ios-input-label">Message</label><textarea class="ios-textarea" placeholder="Tell me about your project..." id="cMsg"></textarea></div>
+            <button class="ios-send-btn" onclick="sendMsg()" id="sendBtn">Send Message</button>
+
+            <div style="margin:20px 16px;background:rgba(48,209,88,0.1);border:1px solid rgba(48,209,88,0.2);border-radius:14px;padding:16px">
+              <div style="font-size:13px;font-weight:700;color:#30d158;margin-bottom:6px">● Open to Opportunities</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300">Available for freelance projects, full-time roles, and collaboration. Based in Johannesburg — working remotely worldwide.</div>
+            </div>
+            <div class="pb-end"></div>
+          </div>
+        </div>
+
+        <!-- BOTTOM SHEET (DI expand) -->
+        <div class="bottom-sheet" id="diSheet">
+          <div class="bs-backdrop" onclick="closeDI()"></div>
+          <div class="bs-content">
+            <div class="bs-handle"></div>
+            <div class="bs-title">Iphile Akho Selana · Full Stack Dev</div>
+            <div class="bs-action" onclick="window.open('https://wa.me/27683305409','_blank');closeDI()"><span class="bs-action-icon">💬</span>WhatsApp Me</div>
+            <div class="bs-action" onclick="window.open('mailto:iphileakhoselana@outlook.com');closeDI()"><span class="bs-action-icon">✉️</span>Send Email</div>
+            <div class="bs-action" onclick="window.open('https://www.linkedin.com/in/iphile-akho-selana-13b64139b','_blank');closeDI()"><span class="bs-action-icon">💼</span>View LinkedIn</div>
+            <div class="bs-action" onclick="window.open('https://github.com/Project30Hub','_blank');closeDI()"><span class="bs-action-icon">🐙</span>View GitHub</div>
+            <button class="bs-cancel" onclick="closeDI()">Cancel</button>
+          </div>
+        </div>
+
+      </div><!-- end screen -->
+    </div><!-- end iphone -->
+  </div>
+</div>
+
+<div class="desktop-info">Scroll or tap icons to navigate · Click Dynamic Island for quick contact</div>
+
+<script>
+// CLOCK
+function updateClock(){
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const time = h + ':' + m;
+  document.getElementById('statusTime').textContent = time;
+  document.getElementById('lockTime').textContent = time;
+  document.getElementById('lockDay').textContent = days[now.getDay()];
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// APP NAVIGATION
+function openApp(name) {
+  document.querySelectorAll('.app-page').forEach(p => { p.classList.remove('active','closing'); });
+  const page = document.getElementById('app-' + name);
+  if(page){ page.classList.add('active'); page.scrollTop = 0; }
+}
+function closeApp(name) {
+  const page = document.getElementById('app-' + name);
+  if(page){
+    page.classList.add('closing');
+    setTimeout(() => { page.classList.remove('active','closing'); }, 350);
+  }
+}
+
+// DYNAMIC ISLAND
+function toggleDI(){ document.getElementById('diSheet').classList.toggle('open'); }
+function closeDI(){ document.getElementById('diSheet').classList.remove('open'); }
+
+// CONTACT
+function sendMsg(){
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const msg = document.getElementById('cMsg').value.trim();
+  if(!name || !email || !msg){ alert('Please fill in all fields.'); return; }
+  const text = encodeURIComponent(`Hi Iphile! 👋\nName: ${name}\nEmail: ${email}\n\n${msg}`);
+  window.open(`https://wa.me/27683305409?text=${text}`, '_blank');
+  const btn = document.getElementById('sendBtn');
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = '#30d158';
+  setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = '#0a84ff'; }, 3000);
+}
+</script>
+</body>
+</html>
