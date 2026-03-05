@@ -87,7 +87,7 @@ html, body {
 .phone-content { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .phone-content::-webkit-scrollbar { display: none; }
 
-.lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 100%; padding: 75px 20px 40px; }
+.lock-screen { display: flex; flex-direction: column; align-items: center; min-height: 100%; padding: 75px 20px 0; }
 .lock-date { text-align: center; margin-top: 20px; }
 .lock-day { font-size: 17px; font-weight: 400; color: var(--grey); letter-spacing: 0.3px; }
 .lock-time-big { font-size: 80px; font-weight: 300; color: white; letter-spacing: -4px; line-height: 1; }
@@ -120,8 +120,8 @@ html, body {
 .ai-github { background: linear-gradient(135deg, #333, #555); }
 .ai-wa { background: linear-gradient(135deg, #25d366, #1da851); }
 
-.dock { width: calc(100% - 28px); background: rgba(40,40,42,0.7); backdrop-filter: var(--blur); border: 1px solid var(--border); border-radius: 24px; padding: 12px 20px; display: flex; justify-content: space-around; align-items: center; margin: 12px 0 0; }
-.home-indicator { width: 134px; height: 5px; background: rgba(255,255,255,0.3); border-radius: 3px; margin: 10px auto 0; }
+.dock { width: calc(100% - 28px); background: rgba(40,40,42,0.7); backdrop-filter: var(--blur); border: 1px solid var(--border); border-radius: 24px; padding: 12px 20px; display: flex; justify-content: space-around; align-items: center; margin-top: auto; }
+.home-indicator { width: 134px; height: 5px; background: rgba(255,255,255,0.3); border-radius: 3px; margin: 10px auto 16px; }
 
 .notif-card { width: 100%; background: rgba(28,28,30,0.75); backdrop-filter: var(--blur); border: 1px solid var(--border); border-radius: 18px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px; }
 .notif-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
@@ -330,6 +330,7 @@ html, body {
               <div class="app-icon" onclick="window.open('https://wa.me/27683305409','_blank')"><div class="app-icon-img ai-wa">💬</div><div class="app-label">WhatsApp</div></div>
             </div>
 
+            <div style="flex:1;min-height:16px"></div>
             <div class="dock">
               <div class="app-icon" onclick="openApp('about')"><div class="app-icon-img ai-about" style="width:52px;height:52px;border-radius:13px;font-size:22px">👤</div></div>
               <div class="app-icon" onclick="openApp('projects')"><div class="app-icon-img ai-projects" style="width:52px;height:52px;border-radius:13px;font-size:22px">🚀</div></div>
@@ -519,7 +520,7 @@ html, body {
             </div>
             <div class="ios-section-header">Get in Touch</div>
             <div class="ios-card">
-              <div class="ios-row" style="cursor:pointer" onclick="window.open('mailto:iphileakhoselana@outlook.com')"><div class="ios-row-icon" style="background:rgba(10,132,255,0.2)">✉️</div><div class="ios-row-label">Email</div><div class="ios-row-value" style="font-size:13px">iphileakhoselana@outlook.com</div><div class="ios-row-chevron">›</div></div>
+              <div class="ios-row" style="cursor:pointer" onclick="window.open('mailto:iphileakhoselana@outlook.com')"><div class="ios-row-icon" style="background:rgba(10,132,255,0.2)">✉️</div><div class="ios-row-label">Email</div><div class="ios-row-value" style="font-size:13px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e574e5657525b5f5556514d5b525f505f7e514b4a52515155105d5153">[email&#160;protected]</a></div><div class="ios-row-chevron">›</div></div>
               <div class="ios-row" style="cursor:pointer" onclick="window.open('tel:+27683305409')"><div class="ios-row-icon" style="background:rgba(48,209,88,0.2)">📱</div><div class="ios-row-label">Phone</div><div class="ios-row-value">+27 68 330 5409</div><div class="ios-row-chevron">›</div></div>
               <div class="ios-row" style="cursor:pointer" onclick="window.open('https://wa.me/27683305409','_blank')"><div class="ios-row-icon" style="background:rgba(37,211,102,0.2)">💬</div><div class="ios-row-label">WhatsApp</div><div class="ios-row-value">+27 68 330 5409</div><div class="ios-row-chevron">›</div></div>
               <div class="ios-row" style="cursor:pointer" onclick="window.open('https://www.linkedin.com/in/iphile-akho-selana-13b64139b','_blank')"><div class="ios-row-icon" style="background:rgba(0,119,181,0.2)">💼</div><div class="ios-row-label">LinkedIn</div><div class="ios-row-value">Iphile Akho Selana</div><div class="ios-row-chevron">›</div></div>
@@ -559,7 +560,7 @@ html, body {
 
 <div class="desktop-info">Scroll or tap icons to navigate · Click Dynamic Island for quick contact</div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Remove splash from DOM after animation completes
 setTimeout(function(){
   var s = document.getElementById('splash');
@@ -607,11 +608,4 @@ function sendMsg(){
   if(!name || !email || !msg){ alert('Please fill in all fields.'); return; }
   var text = encodeURIComponent('Hi Iphile! \nName: ' + name + '\nEmail: ' + email + '\n\n' + msg);
   window.open('https://wa.me/27683305409?text=' + text, '_blank');
-  var btn = document.getElementById('sendBtn');
-  btn.textContent = '✓ Message Sent!';
-  btn.style.background = '#30d158';
-  setTimeout(function(){ btn.textContent = 'Send Message'; btn.style.background = '#0a84ff'; }, 3000);
-}
-</script>
-</body>
-</html>
+  var btn = docum
