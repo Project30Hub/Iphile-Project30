@@ -65,10 +65,9 @@ html, body { width: 100%; min-height: 100vh; font-family: 'Plus Jakarta Sans', -
 .pw-stat-n { font-size: 18px; font-weight: 800; color: white; letter-spacing: -0.5px; display: block; }
 .pw-stat-l { font-size: 9px; color: var(--grey); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; display: block; }
 .app-grid { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 0 8px; margin-top: 8px; }
-.app-icon { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: transform 0.15s; }
+.app-icon { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: transform 0.15s; background: none; border: none; padding: 0; font-family: inherit; -webkit-tap-highlight-color: rgba(255,255,255,0.1); }
 .app-icon:active { transform: scale(0.9); }
-.app-icon-img { width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
-.app-icon-img::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.12), transparent); border-radius: 15px 15px 0 0; }
+.app-icon-img { width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
 .app-label { font-size: 10px; color: white; font-weight: 500; letter-spacing: 0.1px; text-align: center; }
 .ai-about { background: linear-gradient(135deg, #1c1c1e, #2c2c2e); }
 .ai-skills { background: linear-gradient(135deg, #0a84ff, #0066cc); }
@@ -198,22 +197,22 @@ html, body { width: 100%; min-height: 100vh; font-family: 'Plus Jakarta Sans', -
         <div class="pw-stats"><div class="pw-stat"><span class="pw-stat-n" style="color:#0a84ff">13+</span><span class="pw-stat-l">Certs</span></div><div class="pw-stat"><span class="pw-stat-n" style="color:#30d158">Full</span><span class="pw-stat-l">Stack</span></div><div class="pw-stat"><span class="pw-stat-n" style="color:#ff9f0a">4</span><span class="pw-stat-l">Languages</span></div></div>
       </div>
       <div class="app-grid">
-        <div class="app-icon" id="btn-about"><div class="app-icon-img ai-about">👤</div><div class="app-label">About</div></div>
-        <div class="app-icon" id="btn-skills"><div class="app-icon-img ai-skills">⚡</div><div class="app-label">Skills</div></div>
-        <div class="app-icon" id="btn-projects"><div class="app-icon-img ai-projects">🚀</div><div class="app-label">Projects</div></div>
-        <div class="app-icon" id="btn-certs"><div class="app-icon-img ai-certs">🏆</div><div class="app-label">Certs</div></div>
-        <div class="app-icon" id="btn-contact"><div class="app-icon-img ai-contact">✉️</div><div class="app-label">Contact</div></div>
-        <div class="app-icon" id="btn-linkedin"><div class="app-icon-img ai-linkedin">in</div><div class="app-label">LinkedIn</div></div>
-        <div class="app-icon" id="btn-github"><div class="app-icon-img ai-github">🐙</div><div class="app-label">GitHub</div></div>
-        <div class="app-icon" id="btn-wa"><div class="app-icon-img ai-wa">💬</div><div class="app-label">WhatsApp</div></div>
-        <div class="app-icon" id="btn-services"><div class="app-icon-img ai-services">🛠️</div><div class="app-label">Services</div></div>
+        <button class="app-icon" onclick="openApp('about')"><div class="app-icon-img ai-about">👤</div><div class="app-label">About</div></button>
+        <button class="app-icon" onclick="openApp('skills')"><div class="app-icon-img ai-skills">⚡</div><div class="app-label">Skills</div></button>
+        <button class="app-icon" onclick="openApp('projects')"><div class="app-icon-img ai-projects">🚀</div><div class="app-label">Projects</div></button>
+        <button class="app-icon" onclick="openApp('certs')"><div class="app-icon-img ai-certs">🏆</div><div class="app-label">Certs</div></button>
+        <button class="app-icon" onclick="openApp('contact')"><div class="app-icon-img ai-contact">✉️</div><div class="app-label">Contact</div></button>
+        <button class="app-icon" onclick="window.open('https://www.linkedin.com/in/iphile-akho-selana-13b64139b','_blank')"><div class="app-icon-img ai-linkedin">in</div><div class="app-label">LinkedIn</div></button>
+        <button class="app-icon" onclick="window.open('https://github.com/Project30Hub','_blank')"><div class="app-icon-img ai-github">🐙</div><div class="app-label">GitHub</div></button>
+        <button class="app-icon" onclick="window.open('https://wa.me/27683305409','_blank')"><div class="app-icon-img ai-wa">💬</div><div class="app-label">WhatsApp</div></button>
+        <button class="app-icon" onclick="openApp('services')"><div class="app-icon-img ai-services">🛠️</div><div class="app-label">Services</div></button>
       </div>
       <div style="flex:1;min-height:16px"></div>
       <div class="dock">
-        <div class="app-icon" id="dock-about"><div class="app-icon-img ai-about" style="width:52px;height:52px;border-radius:13px;font-size:22px">👤</div></div>
-        <div class="app-icon" id="dock-projects"><div class="app-icon-img ai-projects" style="width:52px;height:52px;border-radius:13px;font-size:22px">🚀</div></div>
-        <div class="app-icon" id="dock-contact"><div class="app-icon-img ai-contact" style="width:52px;height:52px;border-radius:13px;font-size:22px">✉️</div></div>
-        <div class="app-icon" id="dock-wa"><div class="app-icon-img ai-wa" style="width:52px;height:52px;border-radius:13px;font-size:22px">💬</div></div>
+        <button class="app-icon" onclick="openApp('about')"><div class="app-icon-img ai-about" style="width:52px;height:52px;border-radius:13px;font-size:22px">👤</div></button>
+        <button class="app-icon" onclick="openApp('projects')"><div class="app-icon-img ai-projects" style="width:52px;height:52px;border-radius:13px;font-size:22px">🚀</div></button>
+        <button class="app-icon" onclick="openApp('contact')"><div class="app-icon-img ai-contact" style="width:52px;height:52px;border-radius:13px;font-size:22px">✉️</div></button>
+        <button class="app-icon" onclick="window.open('https://wa.me/27683305409','_blank')"><div class="app-icon-img ai-wa" style="width:52px;height:52px;border-radius:13px;font-size:22px">💬</div></button>
       </div>
       <div class="home-indicator"></div>
     </div>
@@ -457,13 +456,13 @@ setInterval(updateClock, 1000);
 // SPLASH
 setTimeout(function(){ var s=document.getElementById('splash'); if(s) s.remove(); }, 2600);
 
-// APP NAV
-function openApp(name){
+// APP NAV - global so onclick works everywhere
+window.openApp = function(name){
   document.querySelectorAll('.app-page').forEach(function(p){ p.classList.remove('active','closing'); });
   var page = document.getElementById('app-'+name);
   if(page){ page.classList.add('active'); page.scrollTop=0; }
 }
-function closeApp(name){
+window.closeApp = function(name){
   var page = document.getElementById('app-'+name);
   if(!page) return;
   page.classList.remove('active');
