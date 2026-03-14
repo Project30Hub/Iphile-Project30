@@ -248,6 +248,13 @@
 
   document.body.appendChild(panel);
   document.body.appendChild(btn);
+  btn.style.opacity = '0';
+  btn.style.transform = 'scale(0)';
+  btn.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+  setTimeout(function(){
+    btn.style.opacity = '1';
+    btn.style.transform = 'scale(1)';
+  }, 3000);
 
   /* ─── STATE ─── */
   const SYSTEM = `You are Yagami, a sharp and friendly AI assistant on Iphile Akho Selana's developer portfolio. Iphile is a Junior Full-Stack Developer based in Johannesburg, South Africa, specialising in HTML/CSS/JS, React, Node.js, Supabase, and AI integration (Claude API). He is currently completing an NQF Level 4 Full Stack Development qualification at ITvarsity/FNB App Academy. His projects include MadaKop (cannabis club platform), an iPhone-style dev portfolio, and various AI-powered web apps. Keep answers concise, warm, and technically confident. If asked about hiring or collaboration, encourage the visitor to use the Contact app on the portfolio. Speak in first person as Yagami.`;
